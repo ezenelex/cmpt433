@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "fcntl.h": "c",
+        "i2c-dev.h": "c",
+        "sampler.h": "c",
+        "stdio.h": "c",
+        "led.h": "c",
+        "stdbool.h": "c",
+        "utilities.h": "c",
+        "dirent.h": "c",
+        "stdlib.h": "c",
+        "unistd.h": "c",
+        "math.h": "c",
+        "ioctl.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

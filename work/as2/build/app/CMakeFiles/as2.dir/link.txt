@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabihf-gcc -fsanitize=address CMakeFiles/as2.dir/src/main.c.o -o as2  ../hal/libhal.a 
