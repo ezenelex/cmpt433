@@ -1,3 +1,14 @@
+Explanation:
+I found the bug with the graphical debugger first. Running the program till segmentation fault, I saw that the
+error happened when swapping two array values, so I investigated that. The swapping code looked fine, so I moved
+further back up the call stack to the function that loops through the arrays and calls the swapper. This is where
+I found the error. i starts at size - 1 and decreases by 1 until it reaches 0. At this point, the check i >= 0
+still passes, so i is decremented once more. Since i is an unsigned int, decrementing it past zero simply makes
+i the largest value an unsigned int could be. This causes issues with the swapping function, since its now trying
+to swap values WAY out of the arrays range due to it using i as an index (which is now a huge number).
+
+Then I went into classic gdb and found the point where i goes from 0 to a huge number. See below
+===============================================================================================================
 Script started on 2024-02-25 20:14:19-08:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="131" LINES="40"]
 osman@debian: ~/cmpt433/work/as2$ gdb-multiarch noworkycp noworky ../../public/myApps/noworky
 gdb-multiarch noworky
