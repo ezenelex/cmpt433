@@ -21,13 +21,21 @@
 #include "hal/display.h"
 #include "hal/periodTimer.h"
 
-
+// This function runs a loop that repeats every 1 second that prints
+// all the collected data for the user to see.
+// This function runs in a thread
 void* printOutput();
 
+// This function opens a socket that listens for a client's UDP messages
+// containing commands used to obtain data from the server, which is here.
+// It runs in a thread.
 void* UDP();
 
+// boolean to signal to UDP() and printOutput() when to finish. Only ever
+// set to true by a UDP message containing 'stop' which calls the stopAll() func
 bool done;
 
+// Stops all active threads
 void stopAll() {
     done = true;
     Sampler_stop();
@@ -39,7 +47,7 @@ void stopAll() {
 
 int main()
 {
-    // Setup
+    // Setup the hardware and period timer
     Display_setupGPIOs();
     int i2cFileDesc = Display_initI2cBus(I2CDRV_LINUX_BUS1, I2C_DEVICE_ADDRESS);
     LED_setup();
@@ -47,17 +55,14 @@ int main()
     Period_init();
     
 
-    
-    // start "clock" thread that spawns a bunch of threads and sleeps for 1 second
-    pthread_t xyz_thread;
-    pthread_create( &xyz_thread, NULL, xyz, NULL);
-    
+    // Start threads
 
+    // start the sampler thread (read sampler.h)
+    pthread_t sampler_thread;
+    pthread_create( &sampler_thread, NULL, Sampler_clock, NULL);
     // start UDP thread
     pthread_t udp_thread;
     pthread_create( &udp_thread, NULL, UDP, NULL);
-
-    
     // start LED thread
     pthread_t led_thread;
     pthread_create( &led_thread, NULL, LED_start, NULL);
@@ -72,14 +77,14 @@ int main()
     pthread_create( &print_output_thread, NULL, printOutput, NULL);
     
 
-    // wait for something to trigger end of program, set "done" to true which tells all threads that they can return
-    //sleepForMs(30000);
-    
+    // At this point all threads are in flight
+    // Only can continue from this point when 'stop' is received by the UDP thread
+    // Which signals all threads to return
 
     // join all threads
     pthread_join( print_output_thread, NULL);
     pthread_join(led_thread, NULL);
-    pthread_join(xyz_thread, NULL);
+    pthread_join(sampler_thread, NULL);
     pthread_join(display_thread, NULL);
     pthread_join(pot_thread, NULL);
     pthread_join(udp_thread, NULL);
@@ -90,12 +95,14 @@ int main()
 
 }
 
+// Runs in a thread
 void* printOutput() {
+    // used for spacing the printed output evenly
     int width;
 
     Period_statistics_t *period_stats = (Period_statistics_t*)malloc(sizeof(Period_statistics_t));
     
-
+    // All the data that will be printed
     unsigned int num_samples = 0;                   // num samples recorded in last second
     unsigned int pot = 0;                           // raw POT value
     unsigned int freq = 0;                          // frequency of LED
@@ -110,6 +117,7 @@ void* printOutput() {
 
     sleepForMs(2000);
 
+    // Keep printing the output until done
     while(!done) {
         if(getTimeInMs() - timestamp < 1000) {
             continue;
@@ -156,6 +164,7 @@ void* printOutput() {
     return NULL;
 }
 
+// Runs in a thread
 void *UDP() {
 
     bool repeat_last_command = false;

@@ -1,6 +1,6 @@
 #include "hal/utilities.h"
 
-
+// blocks the calling process for delayInMs milliseconds
 void sleepForMs(long long delayInMs) {
     const long long NS_PER_MS = 1000 * 1000;
     const long long NS_PER_SECOND = 1000000000;
@@ -11,6 +11,7 @@ void sleepForMs(long long delayInMs) {
     nanosleep(&reqDelay, (struct timespec *) NULL);    
 }
 
+// runs a linux command
 void runCommand(char* command){
     // Execute the shell command (output into pipe)
     FILE *pipe = popen(command, "r");
@@ -31,6 +32,7 @@ void runCommand(char* command){
     }
 }
 
+// gets the current time in ms
 long long getTimeInMs(void)
 {
     struct timespec spec;

@@ -1,12 +1,16 @@
 #include "hal/display.h"
 
-
+// Boolean that the Display_start() function checks to know when to finish
 static bool done;
+// The number the display shows
 static unsigned int number;
+// The shapes for each number from 0 to 9
+// digit_a stores info for the bottom half of the digit while digit_b stores for the top.
+// Theres too many segments to fit into 2 bytes, so each digit requires two bytes of data to show.
 static const int digit_a[] = {0xa1, 0x04, 0x31, 0xb0, 0x90, 0xb0, 0xb1, 0x80, 0xb1, 0xb0};
 static const int digit_b[] = {0x86, 0x20, 0x0e, 0x0e, 0x8a, 0x8c, 0x8c, 0x06, 0x8e, 0x8e};
 
-
+// writes data to the I2C bus
 void Display_writeI2cReg(int i2cFileDesc, unsigned char regAddr, unsigned char value) {
     unsigned char buff[2];
     buff[0] = regAddr;
@@ -123,6 +127,7 @@ void Display_setupGPIOs() {
     return;
 }
 
+// sets up the I2C bus
 int Display_initI2cBus(char* bus, int address) {
     runCommand("config-pin P9_18 i2c");
     runCommand("config-pin P9_17 i2c");
@@ -137,6 +142,7 @@ int Display_initI2cBus(char* bus, int address) {
     return i2cFileDesc;
 }
 
+// updates the number that the display is showing
 void Display_setNumber(unsigned int num) {
     number = num;
     return;

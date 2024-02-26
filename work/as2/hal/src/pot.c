@@ -1,12 +1,11 @@
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
+
 #include "hal/pot.h"
-#include "hal/utilities.h"
+
 
 static unsigned int POT;
 static bool done;
 
+// Thread that runs a loop continuously sampling the potentiometer every 100ms.
 void* POT_start() {
     done = false;
     FILE* f;

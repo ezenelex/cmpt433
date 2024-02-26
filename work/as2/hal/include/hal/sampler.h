@@ -56,14 +56,20 @@ long long Sampler_getNumSamplesTaken(void);
 // Computes the average measurement after each read
 void *Sampler_readPhotoresistor();
 
-// every second this thread will start other threads
-//      Sampler_moveCurrentDataToHistory
-//      Sampler_readPhotoresistor
-//      etc
-void *xyz();
+// Runs in a thread
+// Every second this thread starts multiple threads that last less than 1 second
+//      Sampler_readPhotoresistor()
+//      Sampler_countLightDips()
+// Its impossible for the called threads to last more than 1 second
+// It also runs Sampler_moveCurrentDataToHistory synchronously but this should be quick and doesn't
+// Throw off the clock too much :)
+void *Sampler_clock();
 
+// Starts the algorithm that counts the light dips in the previous second.
+// This runs in a thread and is called every second by xyz
 void *Sampler_countLightDips();
 
+// Simply returns the number of dips in the last second
 unsigned int Sampler_getNumDips();
 
 #endif

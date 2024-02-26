@@ -43,6 +43,7 @@ void Sampler_moveCurrentDataToHistory(void) {
 
 // starts sampling as many PR values it can in 1 second. after the xyz function sleeps for 1 second, this function is instructed to stop.
 // Computes the average measurement after each read
+// Stores data into a buffer after each read which is moved to the history after this function completes.
 void *Sampler_readPhotoresistor() {
     FILE* f;
     int a2dReading = 0;
@@ -74,8 +75,8 @@ void *Sampler_readPhotoresistor() {
 // every second this thread will start other threads
 //      Sampler_moveCurrentDataToHistory
 //      Sampler_readPhotoresistor
-//      etc
-void* xyz() {
+//      Sampler_moveCurrentDataToHistory (not in a thread)
+void* Sampler_clock() {
     num_samples_total = 0;
     PR_buffer_len = 0;
     PR_history_len = 0;
@@ -96,9 +97,8 @@ void* xyz() {
 
         // start measurement thread
         pthread_create(&sampler_thread, NULL, Sampler_readPhotoresistor, NULL);
-        pthread_create(&count_light_dips_thread, NULL, Sampler_countLightDips, NULL);
-        // start the print output thread
         // start computing number of dips thread
+        pthread_create(&count_light_dips_thread, NULL, Sampler_countLightDips, NULL);
 
         // sleep for 1 second
         sleepForMs(1000);
@@ -108,16 +108,6 @@ void* xyz() {
         // join all threads
         pthread_join(sampler_thread, NULL);
         pthread_join(count_light_dips_thread, NULL);
-
-        /*
-        printf("Total samples: %lli\n", num_samples_total);
-        printf("Samples recorded in the last second: %u\n", PR_history_len);
-        printf("History: %.2lf %.2lf %.2lf %.2lf %.2lf...\n", PR_history[0], PR_history[1], PR_history[2], PR_history[3], PR_history[4]);
-        printf("Average: %lf\n", average_reading);
-        printf("Num dips in last second: %u\n", dips_in_last_second);
-        printf("POT: %u\n", POT_getReading());
-        Display_setNumber(dips_in_last_second);
-        */
 
     }
     return NULL;
@@ -133,13 +123,6 @@ int Sampler_getHistorySize(void) {
 // The calling code must call free() on the returned pointer.
 // Note: It provides both data and size to ensure consistency.
 double* Sampler_getHistory(int *size) {
-    /*
-    unsigned int num_bytes = sizeof(double) * PR_history_len;
-    double* sampler_history = (double*)malloc(num_bytes);
-    memcpy(sampler_history, PR_history, num_bytes);
-    return sampler_history;
-    */
-   
     double* sampler_history = (double*)malloc(sizeof(double) * *size);
     pthread_mutex_lock(&history_lock);
     memcpy(sampler_history, PR_history, sizeof(double) * *size);
@@ -157,6 +140,7 @@ long long Sampler_getNumSamplesTaken(void) {
     return num_samples_total;
 }
 
+// Algorithm to count the light dips
 void *Sampler_countLightDips() {
     double avg = average_reading;
     bool in_dip = false;

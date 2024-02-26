@@ -55,6 +55,14 @@ string.h
 -
 
 ../hal/include/hal/pot.h
+stdbool.h
+-
+stdlib.h
+-
+stdio.h
+-
+hal/utilities.h
+../hal/include/hal/hal/utilities.h
 
 ../hal/include/hal/sampler.h
 stdlib.h

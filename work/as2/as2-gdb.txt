@@ -1,0 +1,151 @@
+Script started on 2024-02-25 20:14:19-08:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="131" LINES="40"]
+osman@debian: ~/cmpt433/work/as2$ gdb-multiarch noworkycp noworky ../../public/myApps/noworky
+gdb-multiarch noworky
+
+GNU gdb (Debian 10.1-1.7) 10.1.90.20210103-git
+Copyright (C) 2021 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from noworky...
+(gdb) target remote 192.168.7.2:2001
+
+Remote debugging using 192.168.7.2:2001
+Reading /lib/ld-linux-armhf.so.3 from remote target...
+warning: File transfers from remote targets can be slow. Use "set sysroot" to access files locally instead.
+Reading /lib/ld-linux-armhf.so.3 from remote target...
+Reading symbols from target:/lib/ld-linux-armhf.so.3...
+Reading /lib/cdd3bebfff72062151d2b9262c1d6b241b3f0d.debug from remote target...
+Reading /lib/.debug/cdd3bebfff72062151d2b9262c1d6b241b3f0d.debug from remote target...
+Reading /usr/lib/debug//lib/cdd3bebfff72062151d2b9262c1d6b241b3f0d.debug from remote target...
+Reading /usr/lib/debug/lib//cdd3bebfff72062151d2b9262c1d6b241b3f0d.debug from remote target...
+Reading target:/usr/lib/debug/lib//cdd3bebfff72062151d2b9262c1d6b241b3f0d.debug from remote target...
+(No debugging symbols found in target:/lib/ld-linux-armhf.so.3)
+0xb6fd5a80 in ?? () from target:/lib/ld-linux-armhf.so.3
+(gdb) break noworky.c:29
+
+Breakpoint 1 at 0x4005d8: file noworky.c, line 29.
+(gdb) c
+
+Continuing.
+Reading /lib/arm-linux-gnueabihf/libc.so.6 from remote target...
+Reading /lib/arm-linux-gnueabihf/89f19a899933c324c6f5dd41234f8ae757c9c4.debug from remote target...
+Reading /lib/arm-linux-gnueabihf/.debug/89f19a899933c324c6f5dd41234f8ae757c9c4.debug from remote target...
+Reading /usr/lib/debug//lib/arm-linux-gnueabihf/89f19a899933c324c6f5dd41234f8ae757c9c4.debug from remote target...
+Reading /usr/lib/debug/lib/arm-linux-gnueabihf//89f19a899933c324c6f5dd41234f8ae757c9c4.debug from remote target...
+Reading target:/usr/lib/debug/lib/arm-linux-gnueabihf//89f19a899933c324c6f5dd41234f8ae757c9c4.debug from remote target...
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+
+(gdb) commands 1
+
+Type commands for breakpoint(s) 1, one per line.
+End with a line saying just "end".
+>print i
+
+>end
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$1 = 8
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$2 = 7
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$3 = 6
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$4 = 5
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$5 = 4
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$6 = 3
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$7 = 2
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$8 = 1
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$9 = 0
+
+(gdb) c
+
+Continuing.
+
+Breakpoint 1, tradeArrays (array1=0x412598, array2=0x4125f0, size=10) at noworky.c:29
+29			swapContent(array1+i, array2+i);
+$10 = 4294967295
+
+(gdb) q
+
+A debugging session is active.
+
+	Inferior 1 [process 4916] will be killed.
+
+Quit anyway? (y or n) y
+
+osman@debian: ~/cmpt433/work/as2[01;32mosman@debian[00m:[01;34m~/cmpt433/work/as2[00m$ 
+
+exit
+
+Script done on 2024-02-25 20:15:04-08:00 [COMMAND_EXIT_CODE="0"]
