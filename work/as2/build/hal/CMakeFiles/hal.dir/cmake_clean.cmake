@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/hal.dir/src/display.c.o"
+  "CMakeFiles/hal.dir/src/led.c.o"
+  "CMakeFiles/hal.dir/src/periodTimer.c.o"
+  "CMakeFiles/hal.dir/src/pot.c.o"
   "CMakeFiles/hal.dir/src/sampler.c.o"
   "CMakeFiles/hal.dir/src/utilities.c.o"
   "libhal.a"

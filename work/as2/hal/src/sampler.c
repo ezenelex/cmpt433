@@ -14,19 +14,30 @@ static unsigned int PR_history_len;
 static double average_reading;
 static bool one_second_elapsed;
 static unsigned int dips_in_last_second;
+pthread_mutex_t history_lock;
 
 static bool done;
 
-void Sampler_cleanup(void) {
+void Sampler_init(void) {
+    pthread_mutex_init(&history_lock, NULL);
+    done = false;
+    return;
+}
+
+void Sampler_stop(void) {
     done = true;
+    pthread_mutex_destroy(&history_lock);
+    return;
 }
 
 
 void Sampler_moveCurrentDataToHistory(void) {
+    pthread_mutex_lock(&history_lock);
     for(int i = 0; i < (int)PR_buffer_len; i++) {
         PR_history[i] = PR_buffer[i];
     }
     PR_history_len = PR_buffer_len;
+    pthread_mutex_unlock(&history_lock);
     return;
 }
 
@@ -38,8 +49,8 @@ void *Sampler_readPhotoresistor() {
     double voltage = 0;
     PR_buffer_len = 0;
 
-
     // keep reading light values for 1 second then stop
+    pthread_mutex_lock(&history_lock);
     while(!one_second_elapsed) {
         // open the file and read the value, then close it
         f = fopen("/sys/bus/iio/devices/iio:device0/in_voltage1_raw", "r");
@@ -52,7 +63,11 @@ void *Sampler_readPhotoresistor() {
         sleepForMs(1);
         PR_buffer_len++;
         num_samples_total++;
+
+        Period_markEvent(PERIOD_EVENT_SAMPLE_LIGHT);
+        //printf("marked event\n");
     }
+    pthread_mutex_unlock(&history_lock);
     return NULL;
 }
 
@@ -94,12 +109,15 @@ void* xyz() {
         pthread_join(sampler_thread, NULL);
         pthread_join(count_light_dips_thread, NULL);
 
+        /*
         printf("Total samples: %lli\n", num_samples_total);
         printf("Samples recorded in the last second: %u\n", PR_history_len);
         printf("History: %.2lf %.2lf %.2lf %.2lf %.2lf...\n", PR_history[0], PR_history[1], PR_history[2], PR_history[3], PR_history[4]);
         printf("Average: %lf\n", average_reading);
         printf("Num dips in last second: %u\n", dips_in_last_second);
+        printf("POT: %u\n", POT_getReading());
         Display_setNumber(dips_in_last_second);
+        */
 
     }
     return NULL;
@@ -123,7 +141,9 @@ double* Sampler_getHistory(int *size) {
     */
    
     double* sampler_history = (double*)malloc(sizeof(double) * *size);
+    pthread_mutex_lock(&history_lock);
     memcpy(sampler_history, PR_history, sizeof(double) * *size);
+    pthread_mutex_unlock(&history_lock);
     return sampler_history;
 }
 
@@ -162,4 +182,8 @@ void *Sampler_countLightDips() {
         }
     }
     return NULL;
+}
+
+unsigned int Sampler_getNumDips() {
+    return dips_in_last_second;
 }

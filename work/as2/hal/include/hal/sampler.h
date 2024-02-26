@@ -21,12 +21,15 @@
 #include <string.h>
 #include "hal/utilities.h"
 #include "hal/display.h"
+#include "hal/pot.h"
+#include "hal/periodTimer.h"
+
 
 //bool done;
 
 // Begin/end the background thread which samples light levels.
 void Sampler_init(void);
-void Sampler_cleanup(void);
+void Sampler_stop(void);
 
 // Must be called once every 1s.
 // Moves the samples that it has been collecting this second into
@@ -61,6 +64,6 @@ void *xyz();
 
 void *Sampler_countLightDips();
 
-
+unsigned int Sampler_getNumDips();
 
 #endif

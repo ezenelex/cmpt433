@@ -5,8 +5,22 @@ hal/CMakeFiles/hal.dir/src/display.c.o
  ../hal/include/hal/display.h
  ../hal/include/hal/utilities.h
  /home/osman/cmpt433/work/as2/hal/src/display.c
+hal/CMakeFiles/hal.dir/src/led.c.o
+ ../hal/include/hal/led.h
+ ../hal/include/hal/pot.h
+ ../hal/include/hal/utilities.h
+ /home/osman/cmpt433/work/as2/hal/src/led.c
+hal/CMakeFiles/hal.dir/src/periodTimer.c.o
+ ../hal/include/hal/periodTimer.h
+ /home/osman/cmpt433/work/as2/hal/src/periodTimer.c
+hal/CMakeFiles/hal.dir/src/pot.c.o
+ ../hal/include/hal/pot.h
+ ../hal/include/hal/utilities.h
+ /home/osman/cmpt433/work/as2/hal/src/pot.c
 hal/CMakeFiles/hal.dir/src/sampler.c.o
  ../hal/include/hal/display.h
+ ../hal/include/hal/periodTimer.h
+ ../hal/include/hal/pot.h
  ../hal/include/hal/sampler.h
  ../hal/include/hal/utilities.h
  /home/osman/cmpt433/work/as2/hal/src/sampler.c

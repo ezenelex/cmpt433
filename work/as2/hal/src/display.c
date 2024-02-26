@@ -1,10 +1,4 @@
-
-
-
-
 #include "hal/display.h"
-
-
 
 
 static bool done;
@@ -36,7 +30,6 @@ void *Display_start(void *i2cFileDesc) {
     while(!done) {
         first_digit = floor(number / 10);
         second_digit = number % 10;
-        printf("First digit: %d Second digit: %d\n", first_digit, second_digit);
         // turn off both digits
         f1 = fopen("/sys/class/gpio/gpio61/value", "w");
         f2 = fopen("/sys/class/gpio/gpio44/value", "w"); 

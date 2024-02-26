@@ -30,6 +30,32 @@ unistd.h
 hal/utilities.h
 ../hal/include/hal/hal/utilities.h
 
+../hal/include/hal/led.h
+stdbool.h
+-
+stdlib.h
+-
+stdio.h
+-
+hal/utilities.h
+../hal/include/hal/hal/utilities.h
+hal/pot.h
+../hal/include/hal/hal/pot.h
+
+../hal/include/hal/periodTimer.h
+assert.h
+-
+pthread.h
+-
+stdio.h
+-
+stdbool.h
+-
+string.h
+-
+
+../hal/include/hal/pot.h
+
 ../hal/include/hal/sampler.h
 stdlib.h
 -
@@ -45,6 +71,10 @@ hal/utilities.h
 ../hal/include/hal/hal/utilities.h
 hal/display.h
 ../hal/include/hal/hal/display.h
+hal/pot.h
+../hal/include/hal/hal/pot.h
+hal/periodTimer.h
+../hal/include/hal/hal/periodTimer.h
 
 ../hal/include/hal/utilities.h
 assert.h
@@ -83,10 +113,22 @@ pthread.h
 -
 dirent.h
 -
+assert.h
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+hal/pot.h
+/home/osman/cmpt433/work/as2/app/src/hal/pot.h
+hal/led.h
+/home/osman/cmpt433/work/as2/app/src/hal/led.h
 hal/sampler.h
 /home/osman/cmpt433/work/as2/app/src/hal/sampler.h
 hal/utilities.h
 /home/osman/cmpt433/work/as2/app/src/hal/utilities.h
 hal/display.h
 /home/osman/cmpt433/work/as2/app/src/hal/display.h
+hal/periodTimer.h
+/home/osman/cmpt433/work/as2/app/src/hal/periodTimer.h
 

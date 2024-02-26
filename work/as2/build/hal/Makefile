@@ -171,6 +171,87 @@ src/display.c.s:
 	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/display.c.s
 .PHONY : src/display.c.s
 
+src/led.o: src/led.c.o
+
+.PHONY : src/led.o
+
+# target to build an object file
+src/led.c.o:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.o
+.PHONY : src/led.c.o
+
+src/led.i: src/led.c.i
+
+.PHONY : src/led.i
+
+# target to preprocess a source file
+src/led.c.i:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.i
+.PHONY : src/led.c.i
+
+src/led.s: src/led.c.s
+
+.PHONY : src/led.s
+
+# target to generate assembly for a file
+src/led.c.s:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.s
+.PHONY : src/led.c.s
+
+src/periodTimer.o: src/periodTimer.c.o
+
+.PHONY : src/periodTimer.o
+
+# target to build an object file
+src/periodTimer.c.o:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.o
+.PHONY : src/periodTimer.c.o
+
+src/periodTimer.i: src/periodTimer.c.i
+
+.PHONY : src/periodTimer.i
+
+# target to preprocess a source file
+src/periodTimer.c.i:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.i
+.PHONY : src/periodTimer.c.i
+
+src/periodTimer.s: src/periodTimer.c.s
+
+.PHONY : src/periodTimer.s
+
+# target to generate assembly for a file
+src/periodTimer.c.s:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.s
+.PHONY : src/periodTimer.c.s
+
+src/pot.o: src/pot.c.o
+
+.PHONY : src/pot.o
+
+# target to build an object file
+src/pot.c.o:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/pot.c.o
+.PHONY : src/pot.c.o
+
+src/pot.i: src/pot.c.i
+
+.PHONY : src/pot.i
+
+# target to preprocess a source file
+src/pot.c.i:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/pot.c.i
+.PHONY : src/pot.c.i
+
+src/pot.s: src/pot.c.s
+
+.PHONY : src/pot.s
+
+# target to generate assembly for a file
+src/pot.c.s:
+	cd /home/osman/cmpt433/work/as2/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/pot.c.s
+.PHONY : src/pot.c.s
+
 src/sampler.o: src/sampler.c.o
 
 .PHONY : src/sampler.o
@@ -237,6 +318,15 @@ help:
 	@echo "... src/display.o"
 	@echo "... src/display.i"
 	@echo "... src/display.s"
+	@echo "... src/led.o"
+	@echo "... src/led.i"
+	@echo "... src/led.s"
+	@echo "... src/periodTimer.o"
+	@echo "... src/periodTimer.i"
+	@echo "... src/periodTimer.s"
+	@echo "... src/pot.o"
+	@echo "... src/pot.i"
+	@echo "... src/pot.s"
 	@echo "... src/sampler.o"
 	@echo "... src/sampler.i"
 	@echo "... src/sampler.s"

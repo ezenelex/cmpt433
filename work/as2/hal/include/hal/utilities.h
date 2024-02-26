@@ -17,4 +17,6 @@ void sleepForMs(long long delayInMs);
 // runs the command
 void runCommand(char* command);
 
+long long getTimeInMs(void);
+
 #endif
