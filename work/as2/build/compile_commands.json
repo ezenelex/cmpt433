@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/osman/cmpt433/work/as2/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as2/hal/hal/include -I/home/osman/cmpt433/work/as2/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11 -o CMakeFiles/hal.dir/src/display.c.o -c /home/osman/cmpt433/work/as2/hal/src/display.c",
+  "file": "/home/osman/cmpt433/work/as2/hal/src/display.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as2/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as2/hal/hal/include -I/home/osman/cmpt433/work/as2/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11 -o CMakeFiles/hal.dir/src/led.c.o -c /home/osman/cmpt433/work/as2/hal/src/led.c",
+  "file": "/home/osman/cmpt433/work/as2/hal/src/led.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as2/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as2/hal/hal/include -I/home/osman/cmpt433/work/as2/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11 -o CMakeFiles/hal.dir/src/periodTimer.c.o -c /home/osman/cmpt433/work/as2/hal/src/periodTimer.c",
+  "file": "/home/osman/cmpt433/work/as2/hal/src/periodTimer.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as2/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as2/hal/hal/include -I/home/osman/cmpt433/work/as2/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11 -o CMakeFiles/hal.dir/src/pot.c.o -c /home/osman/cmpt433/work/as2/hal/src/pot.c",
+  "file": "/home/osman/cmpt433/work/as2/hal/src/pot.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as2/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as2/hal/hal/include -I/home/osman/cmpt433/work/as2/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11 -o CMakeFiles/hal.dir/src/sampler.c.o -c /home/osman/cmpt433/work/as2/hal/src/sampler.c",
+  "file": "/home/osman/cmpt433/work/as2/hal/src/sampler.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as2/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as2/hal/hal/include -I/home/osman/cmpt433/work/as2/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11 -o CMakeFiles/hal.dir/src/utilities.c.o -c /home/osman/cmpt433/work/as2/hal/src/utilities.c",
+  "file": "/home/osman/cmpt433/work/as2/hal/src/utilities.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as2/build/app",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as2/app/include -I/home/osman/cmpt433/work/as2/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11 -o CMakeFiles/as2.dir/src/main.c.o -c /home/osman/cmpt433/work/as2/app/src/main.c",
+  "file": "/home/osman/cmpt433/work/as2/app/src/main.c"
+}
+]

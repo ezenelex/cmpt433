@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/osman/cmpt433/work/as2/hal/hal/include -I/home/osman/cmpt433/work/as2/hal/include
 
-C_FLAGS = -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11
+C_FLAGS = -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -std=gnu11
 

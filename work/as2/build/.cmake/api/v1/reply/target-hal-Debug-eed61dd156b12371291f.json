@@ -73,6 +73,9 @@
 			"compileCommandFragments" : 
 			[
 				{
+					"fragment" : "-g"
+				},
+				{
 					"backtrace" : 3,
 					"fragment" : "-Wall"
 				},

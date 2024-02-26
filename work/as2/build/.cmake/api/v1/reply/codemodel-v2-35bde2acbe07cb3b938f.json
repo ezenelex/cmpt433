@@ -47,7 +47,7 @@
 					]
 				}
 			],
-			"name" : "",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -70,14 +70,14 @@
 				{
 					"directoryIndex" : 2,
 					"id" : "as2::@5f5a17c01335469806cb",
-					"jsonFile" : "target-as2-02fe2a6a4a71322c0713.json",
+					"jsonFile" : "target-as2-Debug-55d364549790a3df4cbe.json",
 					"name" : "as2",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "hal::@ad971efe0e95b39e260f",
-					"jsonFile" : "target-hal-20e8709b029d92d9200d.json",
+					"jsonFile" : "target-hal-Debug-eed61dd156b12371291f.json",
 					"name" : "hal",
 					"projectIndex" : 0
 				}

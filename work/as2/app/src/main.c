@@ -28,6 +28,15 @@ void* UDP();
 
 bool done;
 
+void stopAll() {
+    done = true;
+    Sampler_stop();
+    Display_stop();
+    POT_stop();
+    LED_stop();
+    return;
+}
+
 int main()
 {
     // Setup
@@ -64,15 +73,10 @@ int main()
     
 
     // wait for something to trigger end of program, set "done" to true which tells all threads that they can return
-    sleepForMs(30000);
+    //sleepForMs(30000);
     
 
     // join all threads
-    Sampler_stop();
-    Display_stop();
-    POT_stop();
-    LED_stop();
-    done = true;
     pthread_join( print_output_thread, NULL);
     pthread_join(led_thread, NULL);
     pthread_join(xyz_thread, NULL);
@@ -154,9 +158,12 @@ void* printOutput() {
 
 void *UDP() {
 
+    bool repeat_last_command = false;
+    char client_message_prev[20];
     double* history = NULL;
     int history_size = 0;
     int bytes_written = 0;
+    int values_since_last_newline = 0;
 
     int socket_desc;
     struct sockaddr_in server_addr;
@@ -185,17 +192,23 @@ void *UDP() {
     }
 
     while(!done) {
-        printf("in loop now\n");
-        if (recvfrom(socket_desc, client_message, sizeof(client_message), 0, (struct sockaddr*)&client_addr, &client_struct_length) < 0){
-            printf("Couldn't receive\n");
-            return NULL;
+        if(repeat_last_command == false) {
+            strcpy(client_message_prev, client_message);
+            if (recvfrom(socket_desc, client_message, sizeof(client_message), 0, (struct sockaddr*)&client_addr, &client_struct_length) < 0){
+                printf("Couldn't receive\n");
+                return NULL;
+            }
+        } else {
+            strcpy(client_message, client_message_prev);
+            printf("%s\n", client_message);
         }
+        repeat_last_command = false;
 
         //printf("Received message from IP: %s and port: %i\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
         //printf("Msg from client: %s\n", client_message);
 
         if(strncmp(client_message, "help", 4)  == 0 || strncmp(client_message, "?", 1) == 0) {
-            strcpy(server_message, "suh\n");
+            strcpy(server_message, "Accepted command examples:\ncount    -- get the total number of samples taken.\ndips     -- get the number of dips in the previously completed second.\nhistory  -- get all the samples in the previously completed second.\nstop     -- cause the server program to end.\n<enter>  -- repeat last command.\n");
         } else if (strncmp(client_message, "count", 5) == 0) {
             sprintf(server_message, "Samples taken total: %lld\n", Sampler_getNumSamplesTaken());
         } else if (strncmp(client_message, "length", 6) == 0) {
@@ -206,9 +219,10 @@ void *UDP() {
             bytes_written = 1;
             history_size = Sampler_getHistorySize();
             history = Sampler_getHistory(&history_size);
+            values_since_last_newline = 0;
             for(int i = 0; i < history_size; i++) {
                 // check if we are exceeding the max data size
-                if(bytes_written + 6 > 1500) {
+                if(bytes_written + 7 > 1500) {
                     // send what has been added to the server message so far
                     if (sendto(socket_desc, server_message, strlen(server_message), 0, (struct sockaddr*)&client_addr, client_struct_length) < 0){
                         printf("Can't send\n");
@@ -217,22 +231,45 @@ void *UDP() {
                     // clear the server message
                     memset(server_message, '\0', sizeof(server_message));
 
+                    // send an indication that the message has been trimmed
+                    strcpy(server_message, "\n                  -----------trimmed------------                      \n");
+                    if (sendto(socket_desc, server_message, strlen(server_message), 0, (struct sockaddr*)&client_addr, client_struct_length) < 0){
+                        printf("Can't send\n");
+                        return NULL;
+                    }
+
+
+                    values_since_last_newline = 0;
+
                     //reset the bytes_written counter
                     bytes_written = 1;
                 }
-                sprintf(server_message + bytes_written - 1, "%.3lf ", history[i]);
-                bytes_written += 6;
+                sprintf(server_message + bytes_written - 1, "%.3lf, ", history[i]);
+                bytes_written += 7;
+                values_since_last_newline++;
+                if(values_since_last_newline == 10) {
+                    sprintf(server_message + bytes_written - 1, "\n");
+                    bytes_written++;
+                    values_since_last_newline = 0;
+                }
             }
+            sprintf(server_message + bytes_written - 1,"\n");
         } else if (strncmp(client_message, "stop", 4) == 0) {
-            done = true;
+            stopAll();
+        } else if (strncmp(client_message, "\n", 1) == 0) {
+            repeat_last_command = true;
+            continue;
         } else {
             strcpy(server_message, "Unknown command\n");
         }
 
-        if (sendto(socket_desc, server_message, strlen(server_message), 0, (struct sockaddr*)&client_addr, client_struct_length) < 0){
-            printf("Can't send\n");
-            return NULL;
+        if(strncmp(client_message, "stop", 4) != 0) {
+            if (sendto(socket_desc, server_message, strlen(server_message), 0, (struct sockaddr*)&client_addr, client_struct_length) < 0){
+                printf("Can't send\n");
+                return NULL;
+            }
         }
+        
     }
     close(socket_desc);
     free(history);
