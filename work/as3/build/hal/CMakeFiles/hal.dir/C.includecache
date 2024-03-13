@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../hal/include/hal/audioMixer.h
+
+/home/osman/cmpt433/work/as3/hal/src/audioMixer.c
+hal/audioMixer.h
+/home/osman/cmpt433/work/as3/hal/src/hal/audioMixer.h
+alsa/asoundlib.h
+-
+stdbool.h
+-
+pthread.h
+-
+limits.h
+-
+alloca.h
+-
+
