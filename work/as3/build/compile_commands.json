@@ -1,6 +1,11 @@
 [
 {
   "directory": "/home/osman/cmpt433/work/as3/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as3/hal/hal/include -I/home/osman/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/accelerometer.c.o -c /home/osman/cmpt433/work/as3/hal/src/accelerometer.c",
+  "file": "/home/osman/cmpt433/work/as3/hal/src/accelerometer.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as3/build/hal",
   "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as3/hal/hal/include -I/home/osman/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/audioMixer.c.o -c /home/osman/cmpt433/work/as3/hal/src/audioMixer.c",
   "file": "/home/osman/cmpt433/work/as3/hal/src/audioMixer.c"
 },

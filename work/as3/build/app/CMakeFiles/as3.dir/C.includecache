@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+../hal/include/hal/accelerometer.h
+
 ../hal/include/hal/audioMixer.h
 
 ../hal/include/hal/joystick.h
@@ -71,4 +73,6 @@ hal/audioMixer.h
 /home/osman/cmpt433/work/as3/app/src/hal/audioMixer.h
 hal/joystick.h
 /home/osman/cmpt433/work/as3/app/src/hal/joystick.h
+hal/accelerometer.h
+/home/osman/cmpt433/work/as3/app/src/hal/accelerometer.h
 

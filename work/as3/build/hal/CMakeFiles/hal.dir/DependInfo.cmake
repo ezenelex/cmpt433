@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/osman/cmpt433/work/as3/hal/src/accelerometer.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/accelerometer.c.o"
   "/home/osman/cmpt433/work/as3/hal/src/audioMixer.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/audioMixer.c.o"
   "/home/osman/cmpt433/work/as3/hal/src/joystick.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/joystick.c.o"
   "/home/osman/cmpt433/work/as3/hal/src/utilities.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/utilities.c.o"

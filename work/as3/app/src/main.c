@@ -17,6 +17,7 @@
 #include "hal/utilities.h"
 #include "hal/audioMixer.h"
 #include "hal/joystick.h"
+#include "hal/accelerometer.h"
 
 #define BEAT_1_NONE 0
 #define BEAT_2_ROCK 1
@@ -31,11 +32,14 @@ void* joystickThread();
 // thread to print output
 //void* printThread();
 
+// thread to poll accelerometer
+void* accelerometerThread();
+
 int currentBPM;
 
 bool stopping;
 
-int currentBeat = BEAT_2_ROCK;
+int currentBeat = BEAT_1_NONE;
 
 void sleepFor8thNote() {
     sleepForMs((long long)((30.0 / (float)currentBPM) * 1000));
@@ -59,6 +63,7 @@ int main() {
 
     AudioMixer_init();
     Joystick_setupGPIOs();
+    Accelerometer_init();
 
     // load drum samples
     //AudioMixer_readWaveFileIntoMemory("wave-files/100051__menegass__gui-drum-bd-hard.wav", &kick);
@@ -80,6 +85,8 @@ int main() {
     pthread_create(&joystick_thread, NULL, joystickThread, NULL);
     //pthread_t print_thread;
     //pthread_create(&print_thread, NULL, printThread, NULL);
+    pthread_t accelerometer_thread;
+    pthread_create(&accelerometer_thread, NULL, accelerometerThread, NULL);
 
     sleepForMs(60000);
 
@@ -88,6 +95,7 @@ int main() {
     pthread_join(beat_thread, NULL);
     pthread_join(joystick_thread, NULL);
     //pthread_join(print_thread, NULL);
+    pthread_join(accelerometer_thread, NULL);
     AudioMixer_freeWaveFileData(&kick);
     AudioMixer_freeWaveFileData(&snare);
     AudioMixer_freeWaveFileData(&hihat);
@@ -96,6 +104,7 @@ int main() {
     AudioMixer_freeWaveFileData(&open_hihat);
     AudioMixer_freeWaveFileData(&crash);
     AudioMixer_cleanup();
+    Accelerometer_stop();
 
     return 0;
 
@@ -215,4 +224,64 @@ void* joystickThread() {
 
     return NULL;
 }
+
+void* accelerometerThread() {
+    int16_t x_prev = 0;
+    int16_t y_prev = 0;
+    int16_t z_prev = 0;
+    int16_t x = 0;
+    int16_t y = 0;
+    int16_t z = 0;
+    long long x_trig = 0;
+    long long y_trig = 0;
+    long long z_trig = 0;
+
+    while(!stopping) {
+        // reads all accelerometer values and puts them in variables in accelerometer.c
+        Accelerometer_read(OUT_X_MSB);
+        x = Accelerometer_getX();
+        y = Accelerometer_getY();
+        z = Accelerometer_getZ();
+
+        printf("%05d %05d %05d \n", x, y, z);
+
+        if(abs(x) > 12000) {
+            if(x_prev == 0 && getTimeInMs() - x_trig > 100) {
+                x_trig = getTimeInMs();
+                AudioMixer_queueSound(&snare);
+                x_prev = 1;
+            }
+        }
+        if(x_prev == 1 && abs(x) < 8000) {
+            x_prev = 0;
+        }
+
+        if(abs(y) > 12000) {
+            if(y_prev == 0 && getTimeInMs() - y_trig > 100) {
+                y_trig = getTimeInMs();
+                AudioMixer_queueSound(&kick);
+                y_prev = 1;
+            }
+        }
+        if(y_prev == 1 && abs(y) < 8000) {
+            y_prev = 0;
+        }
+
+        if(abs(z-16400) > 12000) {
+            if(z_prev == 0 && getTimeInMs() - z_trig > 100) {
+                z_trig = getTimeInMs();
+                AudioMixer_queueSound(&hihat);
+                z_prev = 1;
+            }
+        }
+        if(z_prev == 1 && abs(z-16400) < 8000) {
+            z_prev = 0;
+        }
+
+        sleepForMs(50);
+    }
+    return NULL;
+}
+
+
 

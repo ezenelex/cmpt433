@@ -144,6 +144,33 @@ hal/fast:
 	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/build
 .PHONY : hal/fast
 
+src/accelerometer.o: src/accelerometer.c.o
+
+.PHONY : src/accelerometer.o
+
+# target to build an object file
+src/accelerometer.c.o:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/accelerometer.c.o
+.PHONY : src/accelerometer.c.o
+
+src/accelerometer.i: src/accelerometer.c.i
+
+.PHONY : src/accelerometer.i
+
+# target to preprocess a source file
+src/accelerometer.c.i:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/accelerometer.c.i
+.PHONY : src/accelerometer.c.i
+
+src/accelerometer.s: src/accelerometer.c.s
+
+.PHONY : src/accelerometer.s
+
+# target to generate assembly for a file
+src/accelerometer.c.s:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/accelerometer.c.s
+.PHONY : src/accelerometer.c.s
+
 src/audioMixer.o: src/audioMixer.c.o
 
 .PHONY : src/audioMixer.o
@@ -234,6 +261,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... hal"
+	@echo "... src/accelerometer.o"
+	@echo "... src/accelerometer.i"
+	@echo "... src/accelerometer.s"
 	@echo "... src/audioMixer.o"
 	@echo "... src/audioMixer.i"
 	@echo "... src/audioMixer.s"
