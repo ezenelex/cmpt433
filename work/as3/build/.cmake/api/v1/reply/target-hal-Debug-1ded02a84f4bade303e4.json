@@ -109,11 +109,7 @@
 			[
 				0,
 				1,
-				2,
-				3,
-				4,
-				5,
-				6
+				2
 			]
 		}
 	],
@@ -133,11 +129,7 @@
 			[
 				0,
 				1,
-				2,
-				3,
-				4,
-				5,
-				6
+				2
 			]
 		}
 	],
@@ -152,31 +144,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "hal/src/display.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "hal/src/led.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "hal/src/periodTimer.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "hal/src/pot.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "hal/src/sampler.c",
+			"path" : "hal/src/joystick.c",
 			"sourceGroupIndex" : 0
 		},
 		{

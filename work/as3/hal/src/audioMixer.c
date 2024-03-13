@@ -302,8 +302,6 @@ static void fillPlaybackBuffer(short *buff, unsigned long size)
             int j = 0;
 			int soundBiteLocation = soundBites[i].location;
 			int soundBiteNumSamples = soundBites[i].pSound->numSamples;
-			//short soundBiteData[soundBiteNumSamples];
-			//memcpy(&soundBiteData, soundBites[i].pSound->pData, sizeof(short) * soundBiteNumSamples);
 			
             for(j = soundBiteLocation; j < soundBiteNumSamples; j++ ) {
 
@@ -312,11 +310,11 @@ static void fillPlaybackBuffer(short *buff, unsigned long size)
                 }
 				
                 // if layering this sample overflows the short value limit, just clip it
-                if(buff[playbackBufferLocation] + soundBites[i].pSound->pData[j] > SHRT_MAX) {
+                if(buff[playbackBufferLocation] + soundBites[i].pSound->pData[j]/2 > SHRT_MAX) {
                     buff[playbackBufferLocation] = SHRT_MAX;
                 // if its not too loud then just layer it normally
                 } else {
-                    buff[playbackBufferLocation] += soundBites[i].pSound->pData[j];
+                    buff[playbackBufferLocation] += soundBites[i].pSound->pData[j]/2;
                 }
 				
 

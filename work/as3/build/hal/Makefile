@@ -171,140 +171,32 @@ src/audioMixer.c.s:
 	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.s
 .PHONY : src/audioMixer.c.s
 
-src/display.o: src/display.c.o
+src/joystick.o: src/joystick.c.o
 
-.PHONY : src/display.o
-
-# target to build an object file
-src/display.c.o:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/display.c.o
-.PHONY : src/display.c.o
-
-src/display.i: src/display.c.i
-
-.PHONY : src/display.i
-
-# target to preprocess a source file
-src/display.c.i:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/display.c.i
-.PHONY : src/display.c.i
-
-src/display.s: src/display.c.s
-
-.PHONY : src/display.s
-
-# target to generate assembly for a file
-src/display.c.s:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/display.c.s
-.PHONY : src/display.c.s
-
-src/led.o: src/led.c.o
-
-.PHONY : src/led.o
+.PHONY : src/joystick.o
 
 # target to build an object file
-src/led.c.o:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.o
-.PHONY : src/led.c.o
+src/joystick.c.o:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.o
+.PHONY : src/joystick.c.o
 
-src/led.i: src/led.c.i
+src/joystick.i: src/joystick.c.i
 
-.PHONY : src/led.i
-
-# target to preprocess a source file
-src/led.c.i:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.i
-.PHONY : src/led.c.i
-
-src/led.s: src/led.c.s
-
-.PHONY : src/led.s
-
-# target to generate assembly for a file
-src/led.c.s:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.s
-.PHONY : src/led.c.s
-
-src/periodTimer.o: src/periodTimer.c.o
-
-.PHONY : src/periodTimer.o
-
-# target to build an object file
-src/periodTimer.c.o:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.o
-.PHONY : src/periodTimer.c.o
-
-src/periodTimer.i: src/periodTimer.c.i
-
-.PHONY : src/periodTimer.i
+.PHONY : src/joystick.i
 
 # target to preprocess a source file
-src/periodTimer.c.i:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.i
-.PHONY : src/periodTimer.c.i
+src/joystick.c.i:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.i
+.PHONY : src/joystick.c.i
 
-src/periodTimer.s: src/periodTimer.c.s
+src/joystick.s: src/joystick.c.s
 
-.PHONY : src/periodTimer.s
-
-# target to generate assembly for a file
-src/periodTimer.c.s:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.s
-.PHONY : src/periodTimer.c.s
-
-src/pot.o: src/pot.c.o
-
-.PHONY : src/pot.o
-
-# target to build an object file
-src/pot.c.o:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/pot.c.o
-.PHONY : src/pot.c.o
-
-src/pot.i: src/pot.c.i
-
-.PHONY : src/pot.i
-
-# target to preprocess a source file
-src/pot.c.i:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/pot.c.i
-.PHONY : src/pot.c.i
-
-src/pot.s: src/pot.c.s
-
-.PHONY : src/pot.s
+.PHONY : src/joystick.s
 
 # target to generate assembly for a file
-src/pot.c.s:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/pot.c.s
-.PHONY : src/pot.c.s
-
-src/sampler.o: src/sampler.c.o
-
-.PHONY : src/sampler.o
-
-# target to build an object file
-src/sampler.c.o:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/sampler.c.o
-.PHONY : src/sampler.c.o
-
-src/sampler.i: src/sampler.c.i
-
-.PHONY : src/sampler.i
-
-# target to preprocess a source file
-src/sampler.c.i:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/sampler.c.i
-.PHONY : src/sampler.c.i
-
-src/sampler.s: src/sampler.c.s
-
-.PHONY : src/sampler.s
-
-# target to generate assembly for a file
-src/sampler.c.s:
-	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/sampler.c.s
-.PHONY : src/sampler.c.s
+src/joystick.c.s:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.s
+.PHONY : src/joystick.c.s
 
 src/utilities.o: src/utilities.c.o
 
@@ -345,21 +237,9 @@ help:
 	@echo "... src/audioMixer.o"
 	@echo "... src/audioMixer.i"
 	@echo "... src/audioMixer.s"
-	@echo "... src/display.o"
-	@echo "... src/display.i"
-	@echo "... src/display.s"
-	@echo "... src/led.o"
-	@echo "... src/led.i"
-	@echo "... src/led.s"
-	@echo "... src/periodTimer.o"
-	@echo "... src/periodTimer.i"
-	@echo "... src/periodTimer.s"
-	@echo "... src/pot.o"
-	@echo "... src/pot.i"
-	@echo "... src/pot.s"
-	@echo "... src/sampler.o"
-	@echo "... src/sampler.i"
-	@echo "... src/sampler.s"
+	@echo "... src/joystick.o"
+	@echo "... src/joystick.i"
+	@echo "... src/joystick.s"
 	@echo "... src/utilities.o"
 	@echo "... src/utilities.i"
 	@echo "... src/utilities.s"

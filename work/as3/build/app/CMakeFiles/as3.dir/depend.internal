@@ -3,10 +3,6 @@
 
 app/CMakeFiles/as3.dir/src/main.c.o
  ../hal/include/hal/audioMixer.h
- ../hal/include/hal/display.h
- ../hal/include/hal/led.h
- ../hal/include/hal/periodTimer.h
- ../hal/include/hal/pot.h
- ../hal/include/hal/sampler.h
+ ../hal/include/hal/joystick.h
  ../hal/include/hal/utilities.h
  /home/osman/cmpt433/work/as3/app/src/main.c

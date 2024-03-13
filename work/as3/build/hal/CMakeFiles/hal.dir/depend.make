@@ -4,28 +4,9 @@
 hal/CMakeFiles/hal.dir/src/audioMixer.c.o: ../hal/include/hal/audioMixer.h
 hal/CMakeFiles/hal.dir/src/audioMixer.c.o: ../hal/src/audioMixer.c
 
-hal/CMakeFiles/hal.dir/src/display.c.o: ../hal/include/hal/display.h
-hal/CMakeFiles/hal.dir/src/display.c.o: ../hal/include/hal/utilities.h
-hal/CMakeFiles/hal.dir/src/display.c.o: ../hal/src/display.c
-
-hal/CMakeFiles/hal.dir/src/led.c.o: ../hal/include/hal/led.h
-hal/CMakeFiles/hal.dir/src/led.c.o: ../hal/include/hal/pot.h
-hal/CMakeFiles/hal.dir/src/led.c.o: ../hal/include/hal/utilities.h
-hal/CMakeFiles/hal.dir/src/led.c.o: ../hal/src/led.c
-
-hal/CMakeFiles/hal.dir/src/periodTimer.c.o: ../hal/include/hal/periodTimer.h
-hal/CMakeFiles/hal.dir/src/periodTimer.c.o: ../hal/src/periodTimer.c
-
-hal/CMakeFiles/hal.dir/src/pot.c.o: ../hal/include/hal/pot.h
-hal/CMakeFiles/hal.dir/src/pot.c.o: ../hal/include/hal/utilities.h
-hal/CMakeFiles/hal.dir/src/pot.c.o: ../hal/src/pot.c
-
-hal/CMakeFiles/hal.dir/src/sampler.c.o: ../hal/include/hal/display.h
-hal/CMakeFiles/hal.dir/src/sampler.c.o: ../hal/include/hal/periodTimer.h
-hal/CMakeFiles/hal.dir/src/sampler.c.o: ../hal/include/hal/pot.h
-hal/CMakeFiles/hal.dir/src/sampler.c.o: ../hal/include/hal/sampler.h
-hal/CMakeFiles/hal.dir/src/sampler.c.o: ../hal/include/hal/utilities.h
-hal/CMakeFiles/hal.dir/src/sampler.c.o: ../hal/src/sampler.c
+hal/CMakeFiles/hal.dir/src/joystick.c.o: ../hal/include/hal/joystick.h
+hal/CMakeFiles/hal.dir/src/joystick.c.o: ../hal/include/hal/utilities.h
+hal/CMakeFiles/hal.dir/src/joystick.c.o: ../hal/src/joystick.c
 
 hal/CMakeFiles/hal.dir/src/utilities.c.o: ../hal/include/hal/utilities.h
 hal/CMakeFiles/hal.dir/src/utilities.c.o: ../hal/src/utilities.c

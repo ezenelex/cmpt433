@@ -5,11 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/home/osman/cmpt433/work/as3/hal/src/audioMixer.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/audioMixer.c.o"
-  "/home/osman/cmpt433/work/as3/hal/src/display.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/display.c.o"
-  "/home/osman/cmpt433/work/as3/hal/src/led.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/led.c.o"
-  "/home/osman/cmpt433/work/as3/hal/src/periodTimer.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/periodTimer.c.o"
-  "/home/osman/cmpt433/work/as3/hal/src/pot.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/pot.c.o"
-  "/home/osman/cmpt433/work/as3/hal/src/sampler.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/sampler.c.o"
+  "/home/osman/cmpt433/work/as3/hal/src/joystick.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/joystick.c.o"
   "/home/osman/cmpt433/work/as3/hal/src/utilities.c" "/home/osman/cmpt433/work/as3/build/hal/CMakeFiles/hal.dir/src/utilities.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
