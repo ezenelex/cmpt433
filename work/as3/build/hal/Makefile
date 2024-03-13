@@ -225,6 +225,33 @@ src/joystick.c.s:
 	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.s
 .PHONY : src/joystick.c.s
 
+src/periodTimer.o: src/periodTimer.c.o
+
+.PHONY : src/periodTimer.o
+
+# target to build an object file
+src/periodTimer.c.o:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.o
+.PHONY : src/periodTimer.c.o
+
+src/periodTimer.i: src/periodTimer.c.i
+
+.PHONY : src/periodTimer.i
+
+# target to preprocess a source file
+src/periodTimer.c.i:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.i
+.PHONY : src/periodTimer.c.i
+
+src/periodTimer.s: src/periodTimer.c.s
+
+.PHONY : src/periodTimer.s
+
+# target to generate assembly for a file
+src/periodTimer.c.s:
+	cd /home/osman/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/periodTimer.c.s
+.PHONY : src/periodTimer.c.s
+
 src/utilities.o: src/utilities.c.o
 
 .PHONY : src/utilities.o
@@ -270,6 +297,9 @@ help:
 	@echo "... src/joystick.o"
 	@echo "... src/joystick.i"
 	@echo "... src/joystick.s"
+	@echo "... src/periodTimer.o"
+	@echo "... src/periodTimer.i"
+	@echo "... src/periodTimer.s"
 	@echo "... src/utilities.o"
 	@echo "... src/utilities.i"
 	@echo "... src/utilities.s"

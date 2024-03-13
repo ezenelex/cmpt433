@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/hal.dir/src/accelerometer.c.o"
   "CMakeFiles/hal.dir/src/audioMixer.c.o"
   "CMakeFiles/hal.dir/src/joystick.c.o"
+  "CMakeFiles/hal.dir/src/periodTimer.c.o"
   "CMakeFiles/hal.dir/src/utilities.c.o"
   "libhal.a"
   "libhal.pdb"

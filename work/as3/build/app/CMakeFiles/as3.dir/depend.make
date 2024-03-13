@@ -4,6 +4,7 @@
 app/CMakeFiles/as3.dir/src/main.c.o: ../hal/include/hal/accelerometer.h
 app/CMakeFiles/as3.dir/src/main.c.o: ../hal/include/hal/audioMixer.h
 app/CMakeFiles/as3.dir/src/main.c.o: ../hal/include/hal/joystick.h
+app/CMakeFiles/as3.dir/src/main.c.o: ../hal/include/hal/periodTimer.h
 app/CMakeFiles/as3.dir/src/main.c.o: ../hal/include/hal/utilities.h
 app/CMakeFiles/as3.dir/src/main.c.o: ../app/src/main.c
 

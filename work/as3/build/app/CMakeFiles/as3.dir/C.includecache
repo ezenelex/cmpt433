@@ -24,6 +24,18 @@ stdbool.h
 dirent.h
 -
 
+../hal/include/hal/periodTimer.h
+assert.h
+-
+pthread.h
+-
+stdio.h
+-
+stdbool.h
+-
+string.h
+-
+
 ../hal/include/hal/utilities.h
 assert.h
 -
@@ -75,4 +87,6 @@ hal/joystick.h
 /home/osman/cmpt433/work/as3/app/src/hal/joystick.h
 hal/accelerometer.h
 /home/osman/cmpt433/work/as3/app/src/hal/accelerometer.h
+hal/periodTimer.h
+/home/osman/cmpt433/work/as3/app/src/hal/periodTimer.h
 

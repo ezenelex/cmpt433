@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include "hal/accelerometer.h"
 #include "hal/utilities.h"
-
+#include "hal/periodTimer.h"
 
 #define I2C_ADDRESS 0x1C
 #define I2C_BUS1 "/dev/i2c-1"
@@ -114,6 +114,7 @@ void Accelerometer_read(unsigned char regAddr) {
     z = value[5] << 8 | value[6];
     //printf("%d %d %d\n", x, y, z);
 
+    Period_markEvent(PERIOD_EVENT_ACCELEROMETER_SAMPLED);
     return;
 }
 

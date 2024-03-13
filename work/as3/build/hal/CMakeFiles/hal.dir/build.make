@@ -115,9 +115,22 @@ hal/CMakeFiles/hal.dir/src/joystick.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hal.dir/src/joystick.c.s"
 	cd /home/osman/cmpt433/work/as3/build/hal && /usr/bin/arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osman/cmpt433/work/as3/hal/src/joystick.c -o CMakeFiles/hal.dir/src/joystick.c.s
 
+hal/CMakeFiles/hal.dir/src/periodTimer.c.o: hal/CMakeFiles/hal.dir/flags.make
+hal/CMakeFiles/hal.dir/src/periodTimer.c.o: ../hal/src/periodTimer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osman/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object hal/CMakeFiles/hal.dir/src/periodTimer.c.o"
+	cd /home/osman/cmpt433/work/as3/build/hal && /usr/bin/arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hal.dir/src/periodTimer.c.o -c /home/osman/cmpt433/work/as3/hal/src/periodTimer.c
+
+hal/CMakeFiles/hal.dir/src/periodTimer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hal.dir/src/periodTimer.c.i"
+	cd /home/osman/cmpt433/work/as3/build/hal && /usr/bin/arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/osman/cmpt433/work/as3/hal/src/periodTimer.c > CMakeFiles/hal.dir/src/periodTimer.c.i
+
+hal/CMakeFiles/hal.dir/src/periodTimer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hal.dir/src/periodTimer.c.s"
+	cd /home/osman/cmpt433/work/as3/build/hal && /usr/bin/arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/osman/cmpt433/work/as3/hal/src/periodTimer.c -o CMakeFiles/hal.dir/src/periodTimer.c.s
+
 hal/CMakeFiles/hal.dir/src/utilities.c.o: hal/CMakeFiles/hal.dir/flags.make
 hal/CMakeFiles/hal.dir/src/utilities.c.o: ../hal/src/utilities.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osman/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object hal/CMakeFiles/hal.dir/src/utilities.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/osman/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object hal/CMakeFiles/hal.dir/src/utilities.c.o"
 	cd /home/osman/cmpt433/work/as3/build/hal && /usr/bin/arm-linux-gnueabihf-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hal.dir/src/utilities.c.o -c /home/osman/cmpt433/work/as3/hal/src/utilities.c
 
 hal/CMakeFiles/hal.dir/src/utilities.c.i: cmake_force
@@ -133,6 +146,7 @@ hal_OBJECTS = \
 "CMakeFiles/hal.dir/src/accelerometer.c.o" \
 "CMakeFiles/hal.dir/src/audioMixer.c.o" \
 "CMakeFiles/hal.dir/src/joystick.c.o" \
+"CMakeFiles/hal.dir/src/periodTimer.c.o" \
 "CMakeFiles/hal.dir/src/utilities.c.o"
 
 # External object files for target hal
@@ -141,10 +155,11 @@ hal_EXTERNAL_OBJECTS =
 hal/libhal.a: hal/CMakeFiles/hal.dir/src/accelerometer.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/src/audioMixer.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/src/joystick.c.o
+hal/libhal.a: hal/CMakeFiles/hal.dir/src/periodTimer.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/src/utilities.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/build.make
 hal/libhal.a: hal/CMakeFiles/hal.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/osman/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C static library libhal.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/osman/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C static library libhal.a"
 	cd /home/osman/cmpt433/work/as3/build/hal && $(CMAKE_COMMAND) -P CMakeFiles/hal.dir/cmake_clean_target.cmake
 	cd /home/osman/cmpt433/work/as3/build/hal && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hal.dir/link.txt --verbose=$(VERBOSE)
 

@@ -3,15 +3,20 @@
 
 hal/CMakeFiles/hal.dir/src/accelerometer.c.o
  ../hal/include/hal/accelerometer.h
+ ../hal/include/hal/periodTimer.h
  ../hal/include/hal/utilities.h
  /home/osman/cmpt433/work/as3/hal/src/accelerometer.c
 hal/CMakeFiles/hal.dir/src/audioMixer.c.o
  ../hal/include/hal/audioMixer.h
+ ../hal/include/hal/periodTimer.h
  /home/osman/cmpt433/work/as3/hal/src/audioMixer.c
 hal/CMakeFiles/hal.dir/src/joystick.c.o
  ../hal/include/hal/joystick.h
  ../hal/include/hal/utilities.h
  /home/osman/cmpt433/work/as3/hal/src/joystick.c
+hal/CMakeFiles/hal.dir/src/periodTimer.c.o
+ ../hal/include/hal/periodTimer.h
+ /home/osman/cmpt433/work/as3/hal/src/periodTimer.c
 hal/CMakeFiles/hal.dir/src/utilities.c.o
  ../hal/include/hal/utilities.h
  /home/osman/cmpt433/work/as3/hal/src/utilities.c

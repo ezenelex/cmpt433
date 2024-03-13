@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-../hal/include/hal/audioMixer.h
-
-/home/osman/cmpt433/work/as3/hal/src/audioMixer.c
-hal/audioMixer.h
-/home/osman/cmpt433/work/as3/hal/src/hal/audioMixer.h
-alsa/asoundlib.h
--
-stdbool.h
+../hal/include/hal/periodTimer.h
+assert.h
 -
 pthread.h
 -
-limits.h
+stdio.h
 -
-alloca.h
+stdbool.h
 -
+string.h
+-
+
+/home/osman/cmpt433/work/as3/hal/src/periodTimer.c
+hal/periodTimer.h
+/home/osman/cmpt433/work/as3/hal/src/hal/periodTimer.h
 

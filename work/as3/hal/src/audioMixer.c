@@ -2,6 +2,7 @@
 // which are left as incomplete.
 // Note: Generates low latency audio on BeagleBone Black; higher latency found on host.
 #include "hal/audioMixer.h"
+#include "hal/periodTimer.h"
 #include <alsa/asoundlib.h>
 #include <stdbool.h>
 #include <pthread.h>
@@ -332,6 +333,7 @@ static void fillPlaybackBuffer(short *buff, unsigned long size)
     } 
 
     pthread_mutex_unlock(&audioMutex);
+	Period_markEvent(PERIOD_EVENT_BUFFER_FILLED);
     return;
 }
 

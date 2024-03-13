@@ -18,6 +18,7 @@
 #include "hal/audioMixer.h"
 #include "hal/joystick.h"
 #include "hal/accelerometer.h"
+#include "hal/periodTimer.h"
 
 #define BEAT_1_NONE 0
 #define BEAT_2_ROCK 1
@@ -30,7 +31,7 @@ void* beatThread();
 void* joystickThread();
 
 // thread to print output
-//void* printThread();
+void* printThread();
 
 // thread to poll accelerometer
 void* accelerometerThread();
@@ -61,6 +62,7 @@ int main() {
     currentBPM = 120;
     stopping = false;
 
+    Period_init();
     AudioMixer_init();
     Joystick_setupGPIOs();
     Accelerometer_init();
@@ -83,8 +85,8 @@ int main() {
     pthread_create(&beat_thread, NULL, beatThread, NULL);
     pthread_t joystick_thread;
     pthread_create(&joystick_thread, NULL, joystickThread, NULL);
-    //pthread_t print_thread;
-    //pthread_create(&print_thread, NULL, printThread, NULL);
+    pthread_t print_thread;
+    pthread_create(&print_thread, NULL, printThread, NULL);
     pthread_t accelerometer_thread;
     pthread_create(&accelerometer_thread, NULL, accelerometerThread, NULL);
 
@@ -94,7 +96,7 @@ int main() {
     stopping = true;
     pthread_join(beat_thread, NULL);
     pthread_join(joystick_thread, NULL);
-    //pthread_join(print_thread, NULL);
+    pthread_join(print_thread, NULL);
     pthread_join(accelerometer_thread, NULL);
     AudioMixer_freeWaveFileData(&kick);
     AudioMixer_freeWaveFileData(&snare);
@@ -105,6 +107,7 @@ int main() {
     AudioMixer_freeWaveFileData(&crash);
     AudioMixer_cleanup();
     Accelerometer_stop();
+    Period_cleanup();
 
     return 0;
 
@@ -243,10 +246,10 @@ void* accelerometerThread() {
         y = Accelerometer_getY();
         z = Accelerometer_getZ();
 
-        printf("%05d %05d %05d \n", x, y, z);
+        //printf("%05d %05d %05d \n", x, y, z);
 
-        if(abs(x) > 12000) {
-            if(x_prev == 0 && getTimeInMs() - x_trig > 100) {
+        if(abs(x) > 14000) {
+            if(x_prev == 0 && getTimeInMs() - x_trig > 150) {
                 x_trig = getTimeInMs();
                 AudioMixer_queueSound(&snare);
                 x_prev = 1;
@@ -256,8 +259,8 @@ void* accelerometerThread() {
             x_prev = 0;
         }
 
-        if(abs(y) > 12000) {
-            if(y_prev == 0 && getTimeInMs() - y_trig > 100) {
+        if(abs(y) > 14000) {
+            if(y_prev == 0 && getTimeInMs() - y_trig > 150) {
                 y_trig = getTimeInMs();
                 AudioMixer_queueSound(&kick);
                 y_prev = 1;
@@ -267,8 +270,8 @@ void* accelerometerThread() {
             y_prev = 0;
         }
 
-        if(abs(z-16400) > 12000) {
-            if(z_prev == 0 && getTimeInMs() - z_trig > 100) {
+        if(abs(z-16400) > 14000) {
+            if(z_prev == 0 && getTimeInMs() - z_trig > 150) {
                 z_trig = getTimeInMs();
                 AudioMixer_queueSound(&hihat);
                 z_prev = 1;
@@ -282,6 +285,42 @@ void* accelerometerThread() {
     }
     return NULL;
 }
+
+void* printThread() {
+    Period_statistics_t* period_stats_buffer = (Period_statistics_t*)malloc(sizeof(Period_statistics_t));
+    Period_statistics_t* period_stats_accelo = (Period_statistics_t*)malloc(sizeof(Period_statistics_t));
+    // beat mode
+    // bpm
+    // volume
+    // audio[min, max] avg (num/num-samples)
+    // accel[min, max] avg (num/num-samples)
+
+    while(!stopping){
+        Period_getStatisticsAndClear(PERIOD_EVENT_ACCELEROMETER_SAMPLED, period_stats_accelo);
+        Period_getStatisticsAndClear(PERIOD_EVENT_BUFFER_FILLED, period_stats_buffer);
+        printf("M%d ", currentBeat);
+        printf("%*dbpm ", 3, currentBPM);
+        printf("vol:%*d    ", 3, AudioMixer_getVolume());
+        printf("Audio[%*.3lf, ", 5, period_stats_buffer->minPeriodInMs);
+        printf("%*.3lf] ", 5, period_stats_buffer->maxPeriodInMs);
+        printf("avg %*.3lf/", 5, period_stats_buffer->avgPeriodInMs);
+        printf("%*d    ", 2, period_stats_buffer->numSamples);
+        printf("Accel[%*.3lf, ", 5, period_stats_accelo->minPeriodInMs);
+        printf("%*.3lf] ", 5, period_stats_accelo->maxPeriodInMs);
+        printf("avg %*.3lf/", 5, period_stats_accelo->avgPeriodInMs);
+        printf("%*d ", 2, period_stats_accelo->numSamples);
+        printf("\n");
+        sleepForMs(1000);
+    }
+
+    free(period_stats_accelo);
+    free(period_stats_buffer);
+
+    
+    return NULL;
+}
+
+
 
 
 
