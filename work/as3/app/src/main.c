@@ -24,6 +24,8 @@
 #define BEAT_2_ROCK 1
 #define BEAT_3_DNB  2
 
+char* beatModeNames[] = {"None", "Rock", "Custom"};
+
 // thread to queue sounds 
 void* beatThread();
 
@@ -35,6 +37,9 @@ void* printThread();
 
 // thread to poll accelerometer
 void* accelerometerThread();
+
+// thread to listen for UDP messages
+void* UDPThread();
 
 int currentBPM;
 
@@ -48,6 +53,11 @@ void sleepFor8thNote() {
 
 void sleepFor16thNote() {
     sleepForMs((long long)((15.0 / (float)currentBPM) * 1000));
+}
+
+void stopAll() {
+    stopping = true;
+    return;
 }
 
 wavedata_t kick;
@@ -89,15 +99,16 @@ int main() {
     pthread_create(&print_thread, NULL, printThread, NULL);
     pthread_t accelerometer_thread;
     pthread_create(&accelerometer_thread, NULL, accelerometerThread, NULL);
-
-    sleepForMs(60000);
+    pthread_t udp_thread;
+    pthread_create(&udp_thread, NULL, UDPThread, NULL);
 
     // cleanup
-    stopping = true;
+
     pthread_join(beat_thread, NULL);
     pthread_join(joystick_thread, NULL);
     pthread_join(print_thread, NULL);
     pthread_join(accelerometer_thread, NULL);
+    pthread_join(udp_thread, NULL);
     AudioMixer_freeWaveFileData(&kick);
     AudioMixer_freeWaveFileData(&snare);
     AudioMixer_freeWaveFileData(&hihat);
@@ -320,7 +331,130 @@ void* printThread() {
     return NULL;
 }
 
+void* UDPThread() {
+    bool repeat_last_command = false;
+    char client_message_prev[20];
+    int socket_desc;
+    struct sockaddr_in server_addr;
+    struct sockaddr_in client_addr;
+    char server_message[5000], client_message[20];
+    socklen_t client_struct_length = sizeof(client_addr);
 
+    memset(server_message, '\0', sizeof(server_message));
+    memset(client_message, '\0', sizeof(client_message));
+
+    socket_desc = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+
+    if(socket_desc < 0) {
+        printf("Error while creating socket\n");
+        return NULL;
+    }
+    printf("Socket created successfully\n");
+
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(12345);
+    server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    if(bind(socket_desc, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0){
+        printf("Couldn't bind to the port\n");
+        return NULL;
+    }    
+
+    while(!stopping) {
+        
+        if(repeat_last_command == false) {
+            strcpy(client_message_prev, client_message);
+            if (recvfrom(socket_desc, client_message, sizeof(client_message), 0, (struct sockaddr*)&client_addr, &client_struct_length) < 0){
+                printf("Couldn't receive\n");
+                return NULL;
+            }
+        } else {
+            strcpy(client_message, client_message_prev);
+            printf("%s\n", client_message);
+        }
+        repeat_last_command = false;
+        
+        //printf("Received message from IP: %s and port: %i\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+        //printf("Msg from client: %s\n", client_message);
+
+        if(strncmp(client_message, "help", 4)  == 0 || strncmp(client_message, "?", 1) == 0) {
+            strcpy(server_message, "Accepted command examples:\nmode          -- cycle through the currently playing beat mode.\nvolume up     -- increase volume by 5 percent.\nvolume down   -- decrease volume by 5 percent.\nbpm up        -- increase the BPM by 5.\nbpm down      -- decrease the BPM by 5.\nplay [sound]  --play a sound\n    Available sounds:\n        kick\n        snare\n        hihat\n        conga\n        tube\n        open hihat\n        crash\n");
+        
+        } else if (strncmp(client_message, "mode", 4) == 0) {
+            currentBeat = (currentBeat + 1) % 3;
+            sprintf(server_message, "Current beat mode: %s\n", beatModeNames[currentBeat]);
+        
+        } else if (strncmp(client_message, "volume up", 9) == 0) {
+            AudioMixer_setVolume(AudioMixer_getVolume() + 5);
+            sprintf(server_message, "Volume: %d\n", AudioMixer_getVolume());
+        
+        } else if (strncmp(client_message, "volume down", 11) == 0) {
+            AudioMixer_setVolume(AudioMixer_getVolume() - 5);
+            sprintf(server_message, "Volume: %d\n", AudioMixer_getVolume());
+        
+        } else if (strncmp(client_message, "bpm up", 6) == 0) {
+            currentBPM += 5;
+            if(currentBPM >= 300) {
+                currentBPM = 300;
+            }
+            sprintf(server_message, "BPM: %d\n", currentBPM);
+        
+        } else if (strncmp(client_message, "bpm down", 8) == 0) {
+            currentBPM -= 5;
+            if(currentBPM <= 40) {
+                currentBPM = 40;
+            }
+            sprintf(server_message, "BPM: %d\n", currentBPM);
+        
+        } else if (strncmp(client_message, "play ", 5) == 0) {
+            if(strncmp(client_message + 5, "kick", 4) == 0) {
+                AudioMixer_queueSound(&kick);
+                strcpy(server_message, "Playing kick\n");
+            } else if(strncmp(client_message + 5, "hihat", 5) == 0) {
+                AudioMixer_queueSound(&hihat);
+                strcpy(server_message, "Playing hihat\n");
+            } else if(strncmp(client_message + 5, "snare", 5) == 0) {
+                AudioMixer_queueSound(&snare);
+                strcpy(server_message, "Playing snare\n");
+            } else if(strncmp(client_message + 5, "conga", 5) == 0) {
+                AudioMixer_queueSound(&conga);
+                strcpy(server_message, "Playing conga\n");
+            } else if(strncmp(client_message + 5, "tube", 4) == 0) {
+                AudioMixer_queueSound(&tube);
+                strcpy(server_message, "Playing tube\n");
+            } else if(strncmp(client_message + 5, "open hihat", 10) == 0) {
+                AudioMixer_queueSound(&open_hihat);
+                strcpy(server_message, "Playing open hihat\n");
+            } else if(strncmp(client_message + 5, "crash", 5) == 0) {
+                AudioMixer_queueSound(&crash);
+                strcpy(server_message, "Playing crash\n");
+            } else {
+                strcpy(server_message, "Unknown sound\n");
+            }
+
+        } else if (strncmp(client_message, "stop", 4) == 0) {
+            stopAll();
+
+        } else if (strncmp(client_message, "\n", 1) == 0) {
+            repeat_last_command = true;
+            continue;
+
+        } else {
+            strcpy(server_message, "Unknown command\n");
+        }
+
+        if(strncmp(client_message, "stop", 4) != 0) {
+            if (sendto(socket_desc, server_message, strlen(server_message), 0, (struct sockaddr*)&client_addr, client_struct_length) < 0){
+                printf("Can't send\n");
+                return NULL;
+            }
+        }
+
+        
+    }
+    close(socket_desc);
+    return NULL;
+}
 
 
 
