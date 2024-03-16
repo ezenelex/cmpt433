@@ -73,6 +73,21 @@ wavedata_t conga;
 wavedata_t tube;
 wavedata_t crash;
 
+int socket_desc;
+struct sockaddr_in server_addr;
+struct sockaddr_in client_addr;
+char server_message[500], client_message[30];
+socklen_t client_struct_length = sizeof(client_addr);
+
+void sendUDPMessage(char* message) {
+    printf(message);
+    if (sendto(socket_desc, message, strlen(message), 0, (struct sockaddr*)&client_addr, client_struct_length) < 0){
+        printf("Can't send\n");
+        
+    }    
+    return;
+}
+
 int main() {
     currentBPM = 120;
     stopping = false;
@@ -220,15 +235,20 @@ void* beatThread() {
 // Performs the appropriate action when detecting a press
 // Keeps running until the stopAll() function is called
 void* joystickThread() {
+    char message[30];
     while(!stopping) {
         sleepForMs(100);
         // increase volume by 5
         if(!Joystick_readGPIO(JOYSTICK_UP_GPIO)) {
             AudioMixer_setVolume(AudioMixer_getVolume() + 5);
+            sprintf(message, "Volume: %d\n", AudioMixer_getVolume());
+            sendUDPMessage(message);
         }
         // decrease volume by 5
         if(!Joystick_readGPIO(JOYSTICK_DOWN_GPIO)) {
             AudioMixer_setVolume(AudioMixer_getVolume() - 5);
+            sprintf(message, "Volume: %d\n", AudioMixer_getVolume());
+            sendUDPMessage(message);
         }
         // decrease bpm by 5
         if(!Joystick_readGPIO(JOYSTICK_LEFT_GPIO)) {
@@ -236,6 +256,8 @@ void* joystickThread() {
             if(currentBPM <= 40) {
                 currentBPM = 40;
             }
+            sprintf(message, "BPM: %d\n", currentBPM);
+            sendUDPMessage(message);
         }
         // increase bpm by 5
         if(!Joystick_readGPIO(JOYSTICK_RIGHT_GPIO)) {
@@ -243,11 +265,16 @@ void* joystickThread() {
             if(currentBPM >= 300) {
                 currentBPM = 300;
             }
+            sprintf(message, "BPM: %d\n", currentBPM);
+            sendUDPMessage(message);
         }
         // cycle beat mode
         if(!Joystick_readGPIO(JOYSTICK_PUSHED_GPIO)) {
             currentBeat = (currentBeat + 1) % 3;
+            sprintf(message, "Current beat mode: %s\n", beatModeNames[currentBeat]);
+            sendUDPMessage(message);
         }
+        
     }
 
     return NULL;
@@ -350,6 +377,8 @@ void* printThread() {
     return NULL;
 }
 
+
+
 // Runs in a thread and opens a UDP socket that listens for client commands (change volume, beat mode, bpm, etc)
 // Also used for talking to the Node.js webserver so the user can perform commands from the browser instead of command line 
 // The user can connect to the socket from the command line by the command
@@ -363,12 +392,8 @@ void* UDPThread() {
     int seconds;
 
     bool repeat_last_command = false;
-    char client_message_prev[20];
-    int socket_desc;
-    struct sockaddr_in server_addr;
-    struct sockaddr_in client_addr;
-    char server_message[500], client_message[20];
-    socklen_t client_struct_length = sizeof(client_addr);
+    char client_message_prev[30];
+    
 
     memset(server_message, '\0', sizeof(server_message));
     memset(client_message, '\0', sizeof(client_message));
@@ -400,7 +425,7 @@ void* UDPThread() {
             }
         } else {
             strcpy(client_message, client_message_prev);
-            printf("%s\n", client_message);
+            //printf("%s\n", client_message);
         }
         repeat_last_command = false;
         
@@ -488,10 +513,7 @@ void* UDPThread() {
         }
 
         if(strncmp(client_message, "stop", 4) != 0) {
-            if (sendto(socket_desc, server_message, strlen(server_message), 0, (struct sockaddr*)&client_addr, client_struct_length) < 0){
-                printf("Can't send\n");
-                return NULL;
-            }
+            sendUDPMessage(server_message);
         }
 
         

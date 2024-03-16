@@ -134,15 +134,6 @@ function sendCommandViaUDP(message) {
 	} else {
 		displayError("Node server is down")
 	}
-	
-	// timeout = setTimeout(() => {
-	// 	console.log('Event 2 was not triggered within 1 second');
-		
-	// }, 1000);
-	// socket.on('reply', ()=> {
-	// 	socket.emit('error', "Node server offline")
-	// 	clearTimeout(timeout)
-	// })
 };
 
 function divMessage(inString) {
