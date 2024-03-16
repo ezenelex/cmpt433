@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <sys/sysinfo.h>
 
 #include "hal/utilities.h"
 #include "hal/audioMixer.h"
@@ -41,20 +42,24 @@ void* accelerometerThread();
 // thread to listen for UDP messages
 void* UDPThread();
 
+// changed by the UDP thread
 int currentBPM;
 
+// set to true by the stopAll() function
 bool stopping;
 
 int currentBeat = BEAT_1_NONE;
 
+
+// sleep for music related lengths. useful for creating beats and keeping a consistent BPM
 void sleepFor8thNote() {
     sleepForMs((long long)((30.0 / (float)currentBPM) * 1000));
 }
-
 void sleepFor16thNote() {
     sleepForMs((long long)((15.0 / (float)currentBPM) * 1000));
 }
 
+// Stop all threads and shutdown gracefully. Only able to be called by the UDP thread
 void stopAll() {
     stopping = true;
     return;
@@ -72,15 +77,13 @@ int main() {
     currentBPM = 120;
     stopping = false;
 
+    // Setup some HAL stuff
     Period_init();
     AudioMixer_init();
     Joystick_setupGPIOs();
     Accelerometer_init();
 
-    // load drum samples
-    //AudioMixer_readWaveFileIntoMemory("wave-files/100051__menegass__gui-drum-bd-hard.wav", &kick);
-    //AudioMixer_readWaveFileIntoMemory("wave-files/100053__menegass__gui-drum-cc.wav", &hihat);
-    //AudioMixer_readWaveFileIntoMemory("wave-files/100058__menegass__gui-drum-snare-hard.wav", &snare);
+    // Load drum samples into memory
     AudioMixer_readWaveFileIntoMemory("wave-files/kick.wav", &kick);
     AudioMixer_readWaveFileIntoMemory("wave-files/hihat.wav", &hihat);
     AudioMixer_readWaveFileIntoMemory("wave-files/snare.wav", &snare);
@@ -90,7 +93,7 @@ int main() {
     AudioMixer_readWaveFileIntoMemory("wave-files/crash.wav", &crash);
 
 
-    // create threads
+    // Create threads
     pthread_t beat_thread;
     pthread_create(&beat_thread, NULL, beatThread, NULL);
     pthread_t joystick_thread;
@@ -102,13 +105,15 @@ int main() {
     pthread_t udp_thread;
     pthread_create(&udp_thread, NULL, UDPThread, NULL);
 
-    // cleanup
+    // Cleanup
 
+    // Join all threads
     pthread_join(beat_thread, NULL);
     pthread_join(joystick_thread, NULL);
     pthread_join(print_thread, NULL);
     pthread_join(accelerometer_thread, NULL);
     pthread_join(udp_thread, NULL);
+    // Free the audio data from memory
     AudioMixer_freeWaveFileData(&kick);
     AudioMixer_freeWaveFileData(&snare);
     AudioMixer_freeWaveFileData(&hihat);
@@ -116,6 +121,7 @@ int main() {
     AudioMixer_freeWaveFileData(&tube);
     AudioMixer_freeWaveFileData(&open_hihat);
     AudioMixer_freeWaveFileData(&crash);
+    // Cleanup some HAL stuff
     AudioMixer_cleanup();
     Accelerometer_stop();
     Period_cleanup();
@@ -124,6 +130,10 @@ int main() {
 
 }
 
+// Runs in a thread and queues the sounds required to construct each beat.
+// The beat mode can changed by pressing the joystick in, or by sending the command "beat [mode]" in a UDP message
+// The modes are none, rock, and custom
+// Keeps running until the stopAll() function is called
 void* beatThread() {
 
     while(!stopping) {
@@ -205,6 +215,10 @@ void* beatThread() {
     return NULL;
 }
 
+
+// Runs in a thread and constantly checks the state of the joystick to see what is pressed
+// Performs the appropriate action when detecting a press
+// Keeps running until the stopAll() function is called
 void* joystickThread() {
     while(!stopping) {
         sleepForMs(100);
@@ -239,6 +253,9 @@ void* joystickThread() {
     return NULL;
 }
 
+// Runs in a thread and keeps reading the accelerometer values in XYZ
+// When it detects a large acceleration in a certain direction, it plays the associated sound
+// Keeps running until the stopAll() function is called
 void* accelerometerThread() {
     int16_t x_prev = 0;
     int16_t y_prev = 0;
@@ -297,6 +314,8 @@ void* accelerometerThread() {
     return NULL;
 }
 
+// Runs in a thread and constantly prints statistics to stdout
+// Keeps running until the stopAll() function is called
 void* printThread() {
     Period_statistics_t* period_stats_buffer = (Period_statistics_t*)malloc(sizeof(Period_statistics_t));
     Period_statistics_t* period_stats_accelo = (Period_statistics_t*)malloc(sizeof(Period_statistics_t));
@@ -331,13 +350,24 @@ void* printThread() {
     return NULL;
 }
 
+// Runs in a thread and opens a UDP socket that listens for client commands (change volume, beat mode, bpm, etc)
+// Also used for talking to the Node.js webserver so the user can perform commands from the browser instead of command line 
+// The user can connect to the socket from the command line by the command
+//      netcat -u 192.168.7.2 12345
+// Keeps running until the stopAll() function is called
 void* UDPThread() {
+    // used for getting the BBG's uptime
+    struct sysinfo info;
+    int hours;
+    int minutes;
+    int seconds;
+
     bool repeat_last_command = false;
     char client_message_prev[20];
     int socket_desc;
     struct sockaddr_in server_addr;
     struct sockaddr_in client_addr;
-    char server_message[5000], client_message[20];
+    char server_message[500], client_message[20];
     socklen_t client_struct_length = sizeof(client_addr);
 
     memset(server_message, '\0', sizeof(server_message));
@@ -378,10 +408,16 @@ void* UDPThread() {
         //printf("Msg from client: %s\n", client_message);
 
         if(strncmp(client_message, "help", 4)  == 0 || strncmp(client_message, "?", 1) == 0) {
-            strcpy(server_message, "Accepted command examples:\nmode          -- cycle through the currently playing beat mode.\nvolume up     -- increase volume by 5 percent.\nvolume down   -- decrease volume by 5 percent.\nbpm up        -- increase the BPM by 5.\nbpm down      -- decrease the BPM by 5.\nplay [sound]  --play a sound\n    Available sounds:\n        kick\n        snare\n        hihat\n        conga\n        tube\n        open hihat\n        crash\n");
+            strcpy(server_message, "Accepted commands:\nmode [beat]   -- switch to a beat mode.\n    Available modes:\n        none\n        rock\n        custom\nvolume up     -- increase volume by 5 percent.\nvolume down   -- decrease volume by 5 percent.\nbpm up        -- increase the BPM by 5.\nbpm down      -- decrease the BPM by 5.\nplay [sound]  --play a sound\n    Available sounds:\n        kick\n        snare\n        hihat\n        conga\n        tube\n        open hihat\n        crash\n");
         
-        } else if (strncmp(client_message, "mode", 4) == 0) {
-            currentBeat = (currentBeat + 1) % 3;
+        } else if (strncmp(client_message, "mode ", 5) == 0) {
+            if(strncmp(client_message + 5, "none", 4) == 0) {
+                currentBeat = BEAT_1_NONE;
+            } else if(strncmp(client_message + 5, "rock", 4) == 0) {
+                currentBeat = BEAT_2_ROCK;
+            } else if(strncmp(client_message + 5, "custom", 6) == 0) {
+                currentBeat = BEAT_3_DNB;
+            }   
             sprintf(server_message, "Current beat mode: %s\n", beatModeNames[currentBeat]);
         
         } else if (strncmp(client_message, "volume up", 9) == 0) {
@@ -433,7 +469,15 @@ void* UDPThread() {
             }
 
         } else if (strncmp(client_message, "stop", 4) == 0) {
-            stopAll();
+            strcpy(server_message, "Stopping Beat Box\n");
+            break;
+
+        } else if (strncmp(client_message, "uptime", 6) == 0) {
+            sysinfo(&info);
+            hours = info.uptime / 3600;
+            minutes = (info.uptime - (3600*hours))/60;
+            seconds = (info.uptime - (3600*hours) - (minutes*60));
+            sprintf(server_message, "Uptime: %02d:%02d:%02d\n", hours, minutes, seconds);
 
         } else if (strncmp(client_message, "\n", 1) == 0) {
             repeat_last_command = true;
@@ -452,6 +496,7 @@ void* UDPThread() {
 
         
     }
+    stopAll();
     close(socket_desc);
     return NULL;
 }

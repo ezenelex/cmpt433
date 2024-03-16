@@ -79,6 +79,8 @@ sys/socket.h
 -
 arpa/inet.h
 -
+sys/sysinfo.h
+-
 hal/utilities.h
 /home/osman/cmpt433/work/as3/app/src/hal/utilities.h
 hal/audioMixer.h

@@ -6,19 +6,37 @@
 
 #IncludeRegexTransform: 
 
-../hal/include/hal/periodTimer.h
+../hal/include/hal/joystick.h
 assert.h
--
-pthread.h
 -
 stdio.h
 -
+stdlib.h
+-
+time.h
+-
 stdbool.h
 -
-string.h
+dirent.h
 -
 
-/home/osman/cmpt433/work/as3/hal/src/periodTimer.c
-hal/periodTimer.h
-/home/osman/cmpt433/work/as3/hal/src/hal/periodTimer.h
+../hal/include/hal/utilities.h
+assert.h
+-
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+stdbool.h
+-
+dirent.h
+-
+
+/home/osman/cmpt433/work/as3/hal/src/joystick.c
+hal/joystick.h
+/home/osman/cmpt433/work/as3/hal/src/hal/joystick.h
+hal/utilities.h
+/home/osman/cmpt433/work/as3/hal/src/hal/utilities.h
 

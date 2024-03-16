@@ -195,8 +195,9 @@ void AudioMixer_cleanup(void)
 
 	printf("Done stopping audio...\n");
 	fflush(stdout);
-}
 
+	pthread_mutex_destroy(&audioMutex);
+}
 
 int AudioMixer_getVolume()
 {
@@ -304,7 +305,7 @@ static void fillPlaybackBuffer(short *buff, unsigned long size)
 			int soundBiteLocation = soundBites[i].location;
 			int soundBiteNumSamples = soundBites[i].pSound->numSamples;
 			
-            for(j = soundBiteLocation; j < soundBiteNumSamples; j++ ) {
+            for(j = soundBiteLocation; j < soundBiteNumSamples-51; j++ ) {
 
                 if(playbackBufferLocation == size) {
                     break;
@@ -324,7 +325,7 @@ static void fillPlaybackBuffer(short *buff, unsigned long size)
             }
 			soundBites[i].location = soundBiteLocation;
             // if sample is finished playback, remove it from soundBites[]
-            if(soundBites[i].location >= soundBites[i].pSound->numSamples - 1) {
+            if(soundBites[i].location >= soundBites[i].pSound->numSamples - 52) {
                 soundBites[i].pSound = NULL;
                 soundBites[i].location = 0;
             }

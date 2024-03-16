@@ -24,6 +24,7 @@ void Joystick_setupGPIOs() {
         }    
         fprintf(pFile, "%s", "in");
         fclose(pFile);
+        closedir(dir);
         sleepForMs(300);
     }
     if(1==1) {
@@ -47,6 +48,7 @@ void Joystick_setupGPIOs() {
         }    
         fprintf(pFile, "%s", "in");
         fclose(pFile);
+        closedir(dir);
         sleepForMs(300);
     }
     if(1==1) {
@@ -70,6 +72,7 @@ void Joystick_setupGPIOs() {
         }    
         fprintf(pFile, "%s", "in");
         fclose(pFile);
+        closedir(dir);
         sleepForMs(300);
     }
     if(1==1) {
@@ -93,6 +96,7 @@ void Joystick_setupGPIOs() {
         }    
         fprintf(pFile, "%s", "in");
         fclose(pFile);
+        closedir(dir);
         sleepForMs(300);
     }
     if(1==1) {
@@ -116,11 +120,15 @@ void Joystick_setupGPIOs() {
         }    
         fprintf(pFile, "%s", "in");
         fclose(pFile);
+        closedir(dir);
         sleepForMs(300);
     }
 
 }
 
+// Reads a joystick GPIO and returns 0 if pressed and 1 if not pressed
+// The gpio argument of this function should be one of the #defined GPIOs in joystick.h
+// Assumes Joystick_setupGPIOs() was called beforehand
 bool Joystick_readGPIO(unsigned int gpio) {
     FILE *pFile;
 

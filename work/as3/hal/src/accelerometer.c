@@ -53,6 +53,7 @@ void Accelerometer_init() {
         }    
         fprintf(pFile, "%s", "in");
         fclose(pFile);
+        closedir(dir);
         sleepForMs(300);
     }
     if(1==1) {
@@ -76,6 +77,7 @@ void Accelerometer_init() {
         }    
         fprintf(pFile, "%s", "in");
         fclose(pFile);
+        closedir(dir);
         sleepForMs(300);
     }
     // ensure the pins are configured to i2c
@@ -109,6 +111,7 @@ void Accelerometer_read(unsigned char regAddr) {
     char value[7];
     read(i2cFileDesc, &value, 7 * sizeof(char));
 
+    // combine the values from the two registers from a certain direction to get the whole value
     x = value[1] << 8 | value[2];
     y = value[3] << 8 | value[4];
     z = value[5] << 8 | value[6];

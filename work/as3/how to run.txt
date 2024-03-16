@@ -1,0 +1,30 @@
+Run the C code
+
+    (target)
+    cd /home/debian
+    cp /mnt/remote/myApps/as3 /home/debian/as3
+    ./as3
+
+    Ensure that the wave-files folder is in /home/debian
+
+
+
+Run the web server
+
+    (target)
+    cd /mnt/remote/node/as3-server-copy
+    node server.js
+
+
+
+
+Copy webserver from host to target
+
+    (host)
+    cd /home/osman/cmpt433/work/as3/as3-server/
+    make
+
+
+Connect to web server
+
+    192.168.7.2:8088
