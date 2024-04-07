@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "fcntl.h": "c",
+        "led-shared-struct.h": "c",
+        "mman.h": "c",
+        "buzzer.h": "c"
+    }
+}

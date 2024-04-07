@@ -1,0 +1,10 @@
+on host
+    CTRL + B -> select CMake: build
+
+on target
+    config-pin p8.11 pruout
+    cd /mnt/remote/pru/pru-as4
+    make
+    make install_PRU0
+    cd /mnt/remote/myApps/
+    sudo ./as4

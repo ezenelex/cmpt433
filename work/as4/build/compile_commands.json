@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/osman/cmpt433/work/as4/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as4/hal/hal/include -I/home/osman/cmpt433/work/as4/hal/include -g -Wall -Werror -Wpedantic -Wextra -Wno-error=pointer-arith -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/accelerometer.c.o -c /home/osman/cmpt433/work/as4/hal/src/accelerometer.c",
+  "file": "/home/osman/cmpt433/work/as4/hal/src/accelerometer.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as4/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as4/hal/hal/include -I/home/osman/cmpt433/work/as4/hal/include -g -Wall -Werror -Wpedantic -Wextra -Wno-error=pointer-arith -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/buzzer.c.o -c /home/osman/cmpt433/work/as4/hal/src/buzzer.c",
+  "file": "/home/osman/cmpt433/work/as4/hal/src/buzzer.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as4/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as4/hal/hal/include -I/home/osman/cmpt433/work/as4/hal/include -g -Wall -Werror -Wpedantic -Wextra -Wno-error=pointer-arith -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/display.c.o -c /home/osman/cmpt433/work/as4/hal/src/display.c",
+  "file": "/home/osman/cmpt433/work/as4/hal/src/display.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as4/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as4/hal/hal/include -I/home/osman/cmpt433/work/as4/hal/include -g -Wall -Werror -Wpedantic -Wextra -Wno-error=pointer-arith -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/joystick.c.o -c /home/osman/cmpt433/work/as4/hal/src/joystick.c",
+  "file": "/home/osman/cmpt433/work/as4/hal/src/joystick.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as4/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as4/hal/hal/include -I/home/osman/cmpt433/work/as4/hal/include -g -Wall -Werror -Wpedantic -Wextra -Wno-error=pointer-arith -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/periodTimer.c.o -c /home/osman/cmpt433/work/as4/hal/src/periodTimer.c",
+  "file": "/home/osman/cmpt433/work/as4/hal/src/periodTimer.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as4/build/hal",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as4/hal/hal/include -I/home/osman/cmpt433/work/as4/hal/include -g -Wall -Werror -Wpedantic -Wextra -Wno-error=pointer-arith -fdiagnostics-color -std=gnu11 -o CMakeFiles/hal.dir/src/utilities.c.o -c /home/osman/cmpt433/work/as4/hal/src/utilities.c",
+  "file": "/home/osman/cmpt433/work/as4/hal/src/utilities.c"
+},
+{
+  "directory": "/home/osman/cmpt433/work/as4/build/app",
+  "command": "/usr/bin/arm-linux-gnueabihf-gcc  -I/home/osman/cmpt433/work/as4/app/include -I/home/osman/cmpt433/work/as4/app/../pru-as4 -I/home/osman/cmpt433/work/as4/hal/include -g -Wall -Werror -Wpedantic -Wextra -Wno-error=pointer-arith -fdiagnostics-color -pthread -std=gnu11 -o CMakeFiles/as4.dir/src/main.c.o -c /home/osman/cmpt433/work/as4/app/src/main.c",
+  "file": "/home/osman/cmpt433/work/as4/app/src/main.c"
+}
+]
